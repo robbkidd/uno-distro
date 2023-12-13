@@ -1,0 +1,64 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "uno-distro"
+dynamic = ["version"]
+description = "Uno Python Distro"
+readme = "README.rst"
+license = "Apache-2.0"
+requires-python = ">=3.7"
+authors = [
+  { name = "Robb Kidd", email = "robb@thekidds.org" },
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: Apache Software License",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.7",
+  "Programming Language :: Python :: 3.8",
+  "Typing :: Typed",
+]
+dependencies = [
+  "opentelemetry-api ~= 1.12",
+  "opentelemetry-instrumentation == 0.42b0",
+  "opentelemetry-sdk ~= 1.13",
+  "opentelemetry-exporter-otlp == 1.21.0",
+]
+
+[project.entry-points.opentelemetry_distro]
+distro = "uno:UnoDistro"
+
+[project.entry-points.opentelemetry_configurator]
+configurator ="uno:UnoConfigurator"
+
+[project.entry-points.opentelemetry_resource_detector]
+uno = "uno:UnoResourceDetector"
+
+# [project.urls]
+# Homepage = "https://github.com/open-telemetry/opentelemetry-python-contrib/tree/main/opentelemetry-distro"
+
+[tool.hatch.version]
+path = "src/uno/version.py"
+
+[tool.hatch.build.targets.sdist]
+include = [
+  "/src",
+  "/tests",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/uno"]
+
+[tool.hatch.envs.test]
+dependencies = [
+  "pytest",
+  "pytest-cov",
+  "pytest-watcher"
+]
+
+[tool.hatch.envs.test.scripts]
+test = "pytest --cov-report=term-missing --cov-config=pyproject.toml --cov=myapp --cov=tests {args}"

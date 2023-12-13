@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "hello-world-flask"
+version = "0.1.0"
+description = ""
+authors = ["Robb Kidd <robb@thekidds.org>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+flask = "^2.2.2"
+uno-distro = {path = "../../", develop = true}
+opentelemetry-api = "^1.19.0"
+opentelemetry-instrumentation-flask = "^0.42b0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
